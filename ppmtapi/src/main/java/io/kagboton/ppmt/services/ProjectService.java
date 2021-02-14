@@ -14,11 +14,41 @@ public class ProjectService {
 
     // save or update a project
     public Project saveOrUpdate(Project project){
+
         try {
             project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
             return projectRepository.save(project);
         }catch (Exception e){
             throw new ProjectIdentifierException("Project Identifier '" + project.getProjectIdentifier().toUpperCase() + "' already exists" );
         }
+    }
+
+    // find a project by it unique identifier
+    public Project findProjectByIdentifier(String projectIdentifier){
+
+        Project project = projectRepository.findByProjectIdentifier(projectIdentifier);
+
+        if(project == null){
+            throw new ProjectIdentifierException("Project Identifier '" + projectIdentifier + "' does not exist" );
+        }
+
+        return project;
+    }
+
+    // find all projects
+    public Iterable<Project> findAllProjects(){
+        return projectRepository.findAll();
+    }
+
+    // delete a project
+    public void deleteProjectByIdentifier(String projectIdentifier){
+
+        Project project = projectRepository.findByProjectIdentifier(projectIdentifier);
+
+        if(project == null){
+            throw new ProjectIdentifierException("Cannot delete project with ID '"+projectIdentifier + "'. This project does not exist");
+        }
+
+        projectRepository.delete(project);
     }
 }
