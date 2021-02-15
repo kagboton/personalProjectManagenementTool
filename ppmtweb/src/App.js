@@ -1,9 +1,20 @@
 import './App.css';
 import Dashboard from './components/Dashboard';
+import Header from './components/layout/Header';
+import AddProject from './components/project/AddProject'
 
-function App() {
-  return (    
-    <Dashboard />
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+const App = () =>  {
+  return (  
+    <Router>     
+      <Header />      
+      <Switch>
+        <Route path="/addProject"><AddProject /></Route>
+        <Route path="/dashboard"><Dashboard /></Route>             
+      </Switch>
+    </Router> 
+    
   );
 }
 
