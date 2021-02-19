@@ -10,10 +10,10 @@ function ProjectItem() {
         <div>
             <Card> 
                 <CardHeader title="Demo Project" subheader="February 14, 2021"/>
-                <CardMedia />
+                <CardMedia image="https://img.mobiscroll.com/demos/card_2.png" style={{height:0}}/>
         
                 <CardContent>
-                    <Typography variant="body" color="textSecondary">
+                    <Typography variant="body2" color="textSecondary">
                         This is a few desciption of the project we are working on
                     </Typography>
                 </CardContent>
