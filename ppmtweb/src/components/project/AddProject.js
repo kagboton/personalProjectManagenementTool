@@ -69,10 +69,14 @@ const AddProject = () => {
                         <TextField label="Project Description" name='projectDescription' value={inputValues.projectDescription} onChange={handleChange} variant="outlined" multiline rows={4} fullWidth/>
                     </Grid> 
                     <Grid item xs={12} md={7} className={classes.formItem}>
-                        <TextField label="Start Date" type="date" name='startDate' value={inputValues.startDate} onChange={handleChange}  variant="outlined" fullWidth/>
+                        <TextField label="Start Date" type="date" name='startDate' value={inputValues.startDate} onChange={handleChange} InputLabelProps={{
+                            shrink: true,
+                          }}  variant="outlined" fullWidth/>
                     </Grid>
                     <Grid item xs={12} md={7} className={classes.formItem}>
-                        <TextField label="Estimated End Date" type="date" name='endDate' value={inputValues.endDate} onChange={handleChange}  variant="outlined" fullWidth/>
+                        <TextField label="Estimated End Date" type="date" name='endDate' value={inputValues.endDate} onChange={handleChange} InputLabelProps={{
+                            shrink: true,
+                          }} variant="outlined" fullWidth/>
                     </Grid>  
                     <Grid item xs={12} md={8} className={classes.formItem}>
                         <Button type='submit' variant="contained" size="large">Create Project</Button> 
