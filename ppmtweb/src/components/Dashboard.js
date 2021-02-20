@@ -1,4 +1,4 @@
-import {Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import React from 'react'
 import ProjectItem from './project/ProjectItem';
 import { makeStyles } from '@material-ui/core/styles';

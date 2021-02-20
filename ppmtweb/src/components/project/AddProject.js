@@ -1,6 +1,9 @@
 
 import { Button, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import { createProject } from '../../store/actions/projectActions'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddProject = () => {
+const AddProject = (props) => {
     const classes = useStyles();
 
     const [inputValues, setInputValues] =  React.useState({
@@ -46,7 +49,14 @@ const AddProject = () => {
 
     const handleSubmit = (event) =>{
         event.preventDefault()
-        console.log(inputValues)
+        const newProject = {
+            projectName: inputValues['projectName'],
+            projectIdentifier: inputValues['projectIdentifier'],
+            projectDescription: inputValues['projectDescription'],
+            startDate: inputValues['startDate'],
+            endDate: inputValues['endDate'],  
+        }
+        props.createProject(newProject, props.history)
     }
 
     return (
@@ -91,4 +101,8 @@ const AddProject = () => {
     )
 }
 
-export default AddProject;
+AddProject.propTypes = {
+    createProject : PropTypes.func.isRequired
+}
+
+export default connect(null, {createProject}) (AddProject);
