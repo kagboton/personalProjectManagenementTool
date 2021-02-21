@@ -1,10 +1,11 @@
 
 import { Button, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { createProject } from '../../store/actions/projectActions'
 import { useHistory } from 'react-router-dom'
+import Alert from '@material-ui/lab/Alert';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -27,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
     },
     formItem: {
                
+    },
+    alert: {
+        marginBottom: "10px"
     }
 }));
 
@@ -34,13 +38,28 @@ const AddProject = (props) => {
     const classes = useStyles();
     const history = useHistory();
 
-    const [inputValues, setInputValues] =  React.useState({
+    const [inputValues, setInputValues] =  useState({
         projectName: '',
         projectIdentifier: '',
         projectDescription: '',
         startDate: '',
-        endDate: '',  
+        endDate: '',      
     })
+
+   const [errors, setErrors] = useState({});
+   useEffect(() => {
+       setErrors(props.errors)
+       console.log('erreur mis a jour', errors)
+   }, [props.errors]);
+
+   const isFirstRun = useRef(true)
+   useEffect(()=>{
+       if(isFirstRun.current){
+        isFirstRun.current = false;
+        return;
+       }
+       setErrors(props.errors)
+   }, [props.errors])
 
     const handleChange = (event) => {
         let inputName = event.target.name;
@@ -61,6 +80,8 @@ const AddProject = (props) => {
         props.createProject(newProject, history)
     }
 
+    
+
     return (
         <div className={classes.root}>
             <Grid container spacing={3}>
@@ -72,12 +93,20 @@ const AddProject = (props) => {
             <form className={classes.root} onSubmit={handleSubmit}>
                 <Grid container spacing={3} className={classes.formContainer}>
                     <Grid item xs={12} md={4} className={classes.formItem}>
-                        <TextField label="Project Name" name='projectName' value={inputValues.projectName} onChange={handleChange} variant="outlined" fullWidth/>
+                        {errors.projectName ? <Alert className={classes.alert} severity="error">{errors.projectName}</Alert> : ''}
+                        <TextField label="Project Name" name='projectName' 
+                            value={inputValues.projectName} 
+                            onChange={handleChange} 
+                            variant="outlined"                            
+                            fullWidth
+                        />
                     </Grid>
                     <Grid item xs={12} md={3} className={classes.formItem}>
+                        {errors.projectIdentifier ? <Alert className={classes.alert} severity="error">{errors.projectIdentifier}</Alert> : ''}  
                         <TextField label="Project Identifier" name='projectIdentifier' value={inputValues.projectIdentifier} onChange={handleChange}  variant="outlined" fullWidth/>
                     </Grid>                        
                     <Grid item xs={12} md={7} className={classes.formItem}>
+                        {errors.projectDescription ? <Alert className={classes.alert} severity="error">{errors.projectDescription}</Alert> : ''}      
                         <TextField label="Project Description" name='projectDescription' value={inputValues.projectDescription} onChange={handleChange} variant="outlined" multiline rows={4} fullWidth/>
                     </Grid> 
                     <Grid item xs={12} md={7} className={classes.formItem}>
@@ -90,7 +119,7 @@ const AddProject = (props) => {
                             shrink: true,
                           }} variant="outlined" fullWidth/>
                     </Grid>  
-                    <Grid item xs={12} md={8} className={classes.formItem}>
+                    <Grid item xs={12} md={8} className={classes.formItem}>                           
                         <Button type='submit' variant="contained" size="large">Create Project</Button> 
                     </Grid>                                                         
                 </Grid>                                                                
@@ -104,7 +133,12 @@ const AddProject = (props) => {
 }
 
 AddProject.propTypes = {
-    createProject : PropTypes.func.isRequired
+    createProject : PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
 }
 
-export default connect(null, {createProject}) (AddProject);
+const mapStateToProps = state => ({
+    errors: state.errors
+})
+
+export default connect(mapStateToProps, {createProject}) (AddProject);
