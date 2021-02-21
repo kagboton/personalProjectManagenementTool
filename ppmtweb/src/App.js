@@ -8,6 +8,7 @@ import store from './store'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () =>  {
+  
   return (  
     <Provider store={store}>
       <Router>     

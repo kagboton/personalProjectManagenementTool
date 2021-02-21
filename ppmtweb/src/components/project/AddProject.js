@@ -4,6 +4,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import { createProject } from '../../store/actions/projectActions'
+import { useHistory } from 'react-router-dom'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const AddProject = (props) => {
     const classes = useStyles();
+    const history = useHistory();
 
     const [inputValues, setInputValues] =  React.useState({
         projectName: '',
@@ -56,7 +58,7 @@ const AddProject = (props) => {
             startDate: inputValues['startDate'],
             endDate: inputValues['endDate'],  
         }
-        props.createProject(newProject, props.history)
+        props.createProject(newProject, history)
     }
 
     return (
