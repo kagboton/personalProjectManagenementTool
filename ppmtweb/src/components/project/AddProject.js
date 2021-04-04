@@ -49,7 +49,6 @@ const AddProject = (props) => {
    const [errors, setErrors] = useState({});
    useEffect(() => {
        setErrors(props.errors)
-       console.log('erreur mis a jour', errors)
    }, [props.errors]);
 
    const isFirstRun = useRef(true)

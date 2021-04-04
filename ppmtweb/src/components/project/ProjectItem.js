@@ -1,9 +1,10 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from '@material-ui/core'
+import {Link} from 'react-router-dom'
 
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import FlagIcon from '@material-ui/icons/Flag';
+import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 
 function ProjectItem(props) {
 
@@ -12,7 +13,7 @@ function ProjectItem(props) {
     return (
         <div>
             <Card> 
-                <CardHeader title={project.projectName} subheader="February 14, 2021"/>
+                <CardHeader title={project.projectIdentifier + " :: " + project.projectName} subheader={project.startDate}/>
                 <CardMedia image="https://img.mobiscroll.com/demos/card_2.png" style={{height:0}}/>
         
                 <CardContent>
@@ -23,13 +24,17 @@ function ProjectItem(props) {
 
                 <CardActions>
                     <IconButton color="primary" arial-aria-label="project board">
-                        <FlagIcon />
+                        <InfoOutlinedIcon />
                     </IconButton>
-                    <IconButton arial-aria-label="edit project">
-                        <EditIcon />
-                    </IconButton>
+                    
+                    <Link to={`/updateProject/${project.projectIdentifier}`}>
+                        <IconButton arial-aria-label="edit project">
+                            <EditOutlinedIcon />
+                        </IconButton>                
+                    </Link>
+                    
                     <IconButton color="secondary" arial-aria-label="delete project">
-                        <DeleteIcon />
+                        <DeleteOutlinedIcon />
                     </IconButton>
                 </CardActions>
             </Card>

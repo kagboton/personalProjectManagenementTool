@@ -1,5 +1,5 @@
 import { Grid } from '@material-ui/core'
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import ProjectItem from './project/ProjectItem';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux'
@@ -9,9 +9,8 @@ import { PropTypes } from 'prop-types'
 
 const useStyles = makeStyles((theme) => ({   
     projectsContainer: {
-        display: "flex",
+        display: "flex",       
         alignItems: "center",
-        justifyContent: "center",
         marginTop: "20px",
         paddingRight: "20px",
         paddingLeft: "20px"
@@ -24,16 +23,15 @@ const Dashboard = (props) => {
 
     const {projects} = props.project
     useEffect(() => {
-        props.getProjects()
-        
-    });
+        props.getProjects()        
+    },[]);
  
 
     return (
        <Grid container spacing={3} className={classes.projectsContainer}>
        
             {projects.map(project => (
-                <Grid item xs={12} md={3}>
+                <Grid key={project.id} item xs={12} md={3}>
                     <ProjectItem key={project.id} project={project}/>
                 </Grid>
             ))}
