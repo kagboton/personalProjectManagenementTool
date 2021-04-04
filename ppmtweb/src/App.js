@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import UpdateProject from './components/project/UpdateProject';
 
 const App = () =>  {
   
@@ -16,6 +17,7 @@ const App = () =>  {
         <Switch>
           <Route path="/addProject"><AddProject /></Route>
           <Route path="/dashboard"><Dashboard /></Route>             
+          <Route path="/updateProject/:id" component={UpdateProject} />
         </Switch>
       </Router>
     </Provider> 
