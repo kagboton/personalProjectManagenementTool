@@ -1,3 +1,4 @@
+import { Divider } from '@material-ui/core'
 import axios from 'axios'
 import { GET_ERRORS, GET_PROJECTS, GET_PROJECT } from '../../constants/ActionTypes'
 
@@ -27,10 +28,16 @@ export const getProjects = () => async dispatch => {
 }
 
 export const getProject = (id, history) => async dispatch => {
-    const response = await axios.get(`http://localhost:8080/api/project/${id}`)
-    dispatch({
-        type: GET_PROJECT,
-        payload: response.data
-    }) 
+    try{
+        const response = await axios.get(`http://localhost:8080/api/project/${id}`)
+        dispatch({
+            type: GET_PROJECT,
+            payload: response.data
+        })
+    }catch(error){
+        history.push({
+            pathname : "/dashboard"
+        })
+    }    
 
 }
