@@ -1,4 +1,4 @@
-import { GET_PROJECT, GET_PROJECTS } from '../../constants/ActionTypes'
+import { GET_PROJECT, GET_PROJECTS, DELETE_PROJECT } from '../../constants/ActionTypes'
 
 const initialState = {
     projects : [],
@@ -16,6 +16,11 @@ const projectReducer = (state = initialState, action) => {
             return {
                 ...state,
                 project : action.payload
+            }
+        case DELETE_PROJECT : 
+            return{
+                ...state,
+                projects: state.projects.filter(project => project.projectIdentifier !== action.payload)
             }
         default: 
             return state;

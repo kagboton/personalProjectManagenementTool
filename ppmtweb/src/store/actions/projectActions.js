@@ -1,13 +1,13 @@
 import { Divider } from '@material-ui/core'
 import axios from 'axios'
-import { GET_ERRORS, GET_PROJECTS, GET_PROJECT } from '../../constants/ActionTypes'
+import { GET_ERRORS, GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from '../../constants/ActionTypes'
 
 
 
 export const createProject = (project, history) => async dispatch => {
 
     try {
-        const response = await axios.post( "http://localhost:8080/api/project/", project)
+        await axios.post( "http://localhost:8080/api/project/", project)
         history.push({
             pathname : "/dashboard"
         })
@@ -44,4 +44,12 @@ export const getProject = (id, history) => async dispatch => {
         })
     }    
 
+}
+
+export const deleteProject = id => async dispatch => {
+    await axios.delete(`http://localhost:8080/api/project/${id}`)
+    dispatch({
+        type: DELETE_PROJECT,
+        payload: id
+    })
 }
